@@ -64,8 +64,57 @@ Word 从问世到现在不断地更新版本，并经常要求下载补丁程序
   \label{fig:xfig6}
 \end{figure}
 
+\subsection{\smarkdown}
+\label{sec:smarkdown}
 
+\smarkdown是什么，其实它是本文作者自己起的名字，可以理解成science Markdown 或者 scholar Markdown的缩写。其实就是一个扩展版本的Markdown标记语言。首先还是简单介绍一下Markdown标记语言：
 
+简单来说，Markdown 其实是一种轻量级的标记语言。或者说，它规定了一些文本的书写格式。
+
+它实际上是个非常简单、非常容易学习的语法。这个语法简单到每个人都可以在5分钟以内学会。更重要的是，Markdown语法所有要素，是与写作的习惯一脉相承的，套用句俗语“仅为写作而生”。
+
+Markdown诞生于互联网时代，更是由深谙互联网文本之道的John Gruber等人设计。因为Ruby与github\footnote{是一个用于使用Git版本控制系统项目的共享虚拟主机服务。它由GitHub公司（曾称Logical Awesome）的开发者Chris Wanstrath、PJ Hyett和Tom Preston-Werner使用Ruby on Rails编写而成}圈的极客们的热捧，以及来自github、Stackoverflow等的大力支持。从一开始，就建立一个完整的生态链。可以这么说，Markdown之所以在近些年如此流行是和互联网以及web 2.0的普及分不开的。因为人们习惯于在网络上写博客，写微博，写云端笔记，才有了对于更好更便捷的表达自己想法的工具的诉求。也就是要求既可以方便的显示文本的内容也可以很容易的控制文本的样式。下面简单演示一下Markdown的效果：
+
+\begin{bframe}
+  \noindent 
+  标题\\
+  ==============\\
+  附标题\\
+  -----------\\
+  开始书写正文吧\\
+  当然也可以用 *列表* 的形式：\\
+  1.   列表项目\\
+  2.   还是列表项目\\
+\end{bframe}
+{\noindent 查看时的效果:}
+\begin{bframe}
+  \noindent
+  {\erhao 标题}\\
+  {\sanhao 附标题}\\
+  开始书写正文吧\\
+  当然也可以用 {\bfseries 列表} 的形式：
+  \begin{enumerate}
+  \item 列表项目
+  \item 还是列表项目
+  \end{enumerate}
+\end{bframe}
+很显然，Markdown用很简单好记的标记就能实现一般情况下的文本格式排版，一切就这么简单。Markdown之所以在被鼓吹之后，越来越流行，不是因为它复杂，而是因为它足够简单。
+
+Markdown虽然使用简单，但是其语法中只定义了日常排版最常用的一些情况，比如标题、段落、列表、强调、贴图等。缺乏一些我们科技排版中必要的元素，比如：表格、参考文献、脚注等。这也正是本文作者要对其进行扩展的原因所在。扩展后的Markdown语法，更加适合科技文献的编写。而且也保留了Markdown语法的简洁性，可以很快掌握。关于具体的Markdown语法和扩展后的\smarkdown语法，本文将在下面系统实现的章节详细介绍。
+
+\subsection{Smarkdown+LaTeX}
+\label{sec:sandl}
+
+\smarkdown就像流行音乐，简单易学，通俗易懂，可以被大多数人所接受。\LaTeX就像古典音乐，优雅灵活，高深强大，但是不是很容易被大多数人所接受。没有任何编程基础的人要想上手使用\LaTeX，并不是一件很容易的事情，起码需要一个多星期的系统学习\footnote{这个时间没有做广泛调研，可能因人而异}，即使这样也不能完全掌握要领。但是学习使用\smarkdown却只需短短几分钟，就可以掌握它的所有的语法，并开始编辑工作，而且编辑过程中可以一直专注与文章的内容。图~\ref{fig:xfig7}描述了不同文档规模下\LaTeX、\smarkdown、Word编辑文档时，耗费在排版格式上的精力的比较。可以看出\smarkdown不仅对于小规模的文档简单易学，而且随着文档规模的增大，用户用于排版的精力并没有太大的增加。
+\begin{figure}[H]
+  \centering
+  \includegraphics{latexmarkdownword}
+  \caption{LaTeX,Smarkdown,Word精力耗费比较}
+  \label{fig:xfig7}
+\end{figure}
+那么，如果把这两个工具结合起来，使用\smarkdown作为给一般用户前端编辑工具，使用\LaTeX作为编辑后生成最终PDF文档的工具。那么就等于把一个复杂而又强大的东西简单化了。相当于在普通用户与\LaTeX专业排版直接架构了一座沟通的“金桥”。用户可以在系统提供的编辑页面编写\smarkdown格式的文章，当然由于\smarkdown可以及时的翻译成html格式，所以用户可以在第一时间看到自己的文档的最终样式\footnote{由于系统允许插入LATEX语法片段，所以这里的预览并不完全是最终格式}。然后系统提供各种\LaTeX的模板供用户使用，其中有个大学的学位论文模板，个出版社的期刊论文模板，通过这些模板，用户可以把自己的文章导出为套用任意模板的最终格式的PDF文件。当然高级用户亦可下载系统转换好的\LaTeX格式的文件，在用自己的模板生成最终文件。而且编辑页面中可以插入\LaTeX语法片段，这些特性可以给那些熟悉\LaTeX的高级用户使用，以生成高质量的数学公式，化学式等。
+
+以上所描述的就是本系统应对高校用户在文档编辑中遇到问题的解决方案：\fbox{ \smarkdown的前端编辑和\LaTeX的后台处理}。当然，要实现这些需要做很多工作，比如首先要实现一个可以把\smarkdown翻译成\LaTeX的编译器，我们将在下面系统实现的章节对这些做详细的描述。
 
 
 \section{文档存储解决方案}
