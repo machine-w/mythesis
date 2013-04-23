@@ -55,3 +55,36 @@ nosql的主要特点包括非关系型、分布式、开源、水平可扩展。
 \item Graph-oriented 面向图论， 如Neo4J。
 \end{enumerate}
 我们系统主要是用的是MongoDB这个面向文档的数据库。一方面，它是目前业界最广泛使用的nosql数据库。另外一方面，它面向文档的数据结构可以不用第一表结构，也支持复杂的查询条件，比较吻合本系统的需求。
+
+\subsection{WEB前端}
+\label{sec:webui}
+
+对于最终用户，直接面对系统的就是用户界面（UI）。所以系统UI的好坏直接影响系统用户体验。本系统最先实现的也是最主要的用户界面就是WEB端的用户界面，也就是网页版的UI。虽然这么说并不准确，因为现在的WEB已经和几年前的网页大不相同了。WEB技术在近今年发展迅速，从一开始HTML的静态页面和applet小程序，到后来AJAX的流行，再到后来使用FLASH技术的富户端，甚至近两年炒的火热的HTML5。WEB技术的发展速度之快，让所有的WEB开发者叫苦不断，因为永远要学习新的技术。
+
+本系统要使用的WEB前端框架叫做BootStrap，它是2011年twitter\footnote{最早也是世界上最流行的微博系统，被中国网墙屏蔽。}的“一小撮”工程师为了提高他们内部的分析和管理能力，用业余时间为他们的产品构建了一套易用、优雅、灵活、可扩展的前端工具集。Bootstrap由MARK OTTO和Jacob Thornton所设计和建立，在github上开源之后，迅速成为该站上最多人watch和fork的项目。大量工程师踊跃为该项目贡献代码，社区惊人地活跃，代码版本进化非常快速，官方文档质量极其高(可以说是优雅)，同时涌现了许多基于Bootstrap建设的网站：界面清新、简洁;要素排版利落大方，如图~\ref{fig:xfig14}所示。
+
+其次，系统门户界面可以使用Jekyll的模板系统，用户可以选择自己门户界面的模板。有兴趣的用户甚至可以自己编写门户模板提供给系统使用。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics{bootstrap}
+  \caption{Bootstrap界面}
+  \label{fig:xfig14}
+\end{figure}
+
+\subsection{pc客户端和移动客户端}
+\label{sec:pcandriodmac}
+
+各种本地客户端程序可以通过标准的RESTful api访问系统数据。任何组织和个人在经过许可的情况下都可以开发并发布本系统的客户端程序。除此以外，我们也会提供官方的客户端程序。根据用户操作习惯的不同那个可以选择WEB方式或者本地客户端形式访问系统。下面简单介绍一下各种本地程序所使用的技术：
+\begin{description}
+\item[windows客户端] 主要采用c\#语言配合客户端界面的控件实现。
+\item[Linux客户端] 使用C++和qt用户界面库实现。
+\item[Mac客户端] 使用object c和cocoa开发框架实现。
+\item[andriod客户端] 使用java和android开发套件实现。
+\item[IOS客户端] 使用object c和Cocoa Touch框架实现。
+\end{description}
+
+除以上介绍的语言与框架外，任何编程语言与开发框架都可以用来开发本系统的本地客户端程序。
+
+\section{\smarkdown语法}
+\label{sec:smarkdownsyntax}
