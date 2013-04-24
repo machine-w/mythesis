@@ -147,3 +147,25 @@ nosql的主要特点包括非关系型、分布式、开源、水平可扩展。
 对于一般的科技文档撰写，系统提供的\smarkdown语法已经基本上可以满足大部分用户的需求了。但是为了满足有些数学和力学专业的用户，本系统还提供了在\smarkdown文档中直接添加\LaTeX数学公式片段的功能\footnote{由于\LaTeX片段只有在把文档转换成\LaTeX文档的时候才会编译，所以文档包含的\LaTeX片段在预览和WEB显示时无法显示完整的输出格式。}。
 
 \LaTeX数学片段的语法很简单，直接把行内\LaTeX数学公式源代码写到文档中以\$为标志的区间内就可以。区间内的公式片段将保留到\LaTeX编译阶段直接输出公式。而将独立公式放入以\$\$.....\$\$或者[.....]的区块中就可以。
+
+\section{RESTful api}
+\label{sec:apitable}
+
+本系统的核心架构就是一个RESTful的web service。通过这个标准的api，任何系统都可以调用本系统中用户数据和文档数据。同时它也是所有本地客户端程序访问系统的标准接口。关于RESTful api是什么，有什么样的好处，有多么流行，在前文中已经介绍过了。下面就用一个表格~\ref{tab:api}描述一下本系统实现的RESTful api中有那些资源，这些资源获取和操作的方式是什么样的。
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|}\hline
+    URL & 命令  & 对URL进行的动作 & 可选参数 & 备注\\\hline
+    \char92 users & GET & 获取用户列表 & page和per\_page控制分页 & \\\hline
+    \char92 users\char92 :id & GET & 获取用户列表 & page和per\_page控制分页 & id为用户的id号 \\\hline
+  \end{tabular}
+  \caption{系统api}
+  \label{tab:api}
+\end{table}
+
+对于以上URL系统支持多种格式的返回内容，可以返回atom,xml,json等格式，由于篇幅原因这里就不一一展示各种格式的返回内容了。
+
+
+
+由于篇幅的原因，本章并没有把系统的全部实现细节全部介绍给读者，而只选取本系统最核心，也是最有特点的两个部分进行来介绍。关于系统许多其他的细节本人计划在系统正式上线后，写到本人在系统的空间中。
