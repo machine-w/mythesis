@@ -167,15 +167,36 @@ RESTful规定对系统的操作有两个部分表达，资源的地址和对该�
 
 \begin{table}[H]
   \centering
-  \begin{tabular}{|c|c|c|c|c|}\hline
-    URL & 命令  & 对URL进行的动作 & 可选参数 & 备注\\\hline
-    \char92 users & GET & 获取用户列表 & page和per\_page控制分页 & \\\hline
-    \char92 users\char92 :id & GET & 获取用户列表 & page和per\_page控制分页 & id为用户的id号 \\\hline
+  \begin{tabular}{|c|c|c|c|}\hline
+    URL & 命令  & 对URL进行的动作 & 备注\\\hline
+    \char92 users & GET & 获取用户列表 & page和per\_page \\\hline
+    \char92 users\char92 :id & GET & 获取指定用户 &  id为用户的id号 \\\hline
+    \char92 user & GET & 获取当前用户 &   \\\hline
+    \char92 users & POST & 添加用户 & 所有用户表所需字段 \\\hline
+    \char92 users\char92 :id & PUT & 修改指定用户信息 & 只有管理员可以使用 \\\hline
+    \char92 users\char92 :id & DELETE & 删除指定用户 &  只有管理员可以使用 \\\hline
+    \char92 user & PUT & 修改当前用户信息 & 用户表所需字段  \\\hline
+    \char92 user & DELETE & 删除用户 &  \\\hline
+    \char92 session & POST & 登录 & 用户名、密码\\\hline
+    \char92 folders & GET & 获取当前用户目录列表 & page和per\_page  \\\hline
+    \char92 folders\char92 :id & GET & 查看目录页面 & id为id号或目录名 \\\hline
+    \char92 folders & POST & 添加目录 & page和per\_page\\\hline
+    \char92 folders\char92 :id & PUT & 修改目录页面 &  id为id号或目录名 \\\hline
+    \char92 folders\char92 :id & DELETE & 删除目录 & id为id号或目录名 \\\hline
+    \char92 folders\char92 :id\char92 documents & GET & 查看当前目录文档列表 & page和per\_page \\\hline
+    \char92 folders\char92 :id\char92 attributes & GET & 获取目录属性列表 &  \\\hline
+    \char92 folders\char92 :id\char92 attributes & PUT & 编辑目录属性列表 &  \\\hline
+    \char92 folders\char92 :id\char92 documents & POST & 添加文档 & 必要字段 \\\hline
+    \char92 folders\char92 :id\char92 documents\char92 :d\_id & GET & 查看文档 & d\_id为id或文档名 \\\hline
+    \char92 folders\char92 :id\char92 documents\char92 :d\_id & PUT  & 编辑文档 & d\_id为id或文档名 \\\hline
+    \char92 folders\char92 :id\char92 documents\char92 :d\_id & DELETE  & 删除文档 & d\_id为id或文档名 \\\hline
+    \char92 folders\char92 :id\char92 documents\char92 :d\_id\char92 attributes & GET & 查看文档属性列表 & \\\hline
+    \char92 folders\char92 :id\char92 documents\char92 :d\_id\char92 attributes & PUT  & 编辑文档属性列表 &  \\\hline
   \end{tabular}
   \caption{系统api}
   \label{tab:api}
 \end{table}
-
+以上表格内容为本系统最基本api资源，完成的资源列表，将在本系统发布后，由api文档给出。
 \subsection{返回的内容}
 \label{sec:content}
 
@@ -232,13 +253,13 @@ RESTful规定对系统的操作有两个部分表达，资源的地址和对该�
 \begin{itemize}
 \item \fbox{200 ok} 表示 \fbox{GET}、\fbox{PUT}、\fbox{DELETE}操作成功。
 \item \fbox{201 Created} 表示 \fbox{POST}操作成功。
-\item \fbox{400 Bad Request} 表示一个被请求的资源不存在。
+\item \fbox{400 Bad Request} 非法请求，比如缺少必要的请求字段。
 \item \fbox{401 Unauthorized} 用户没有经过身份验证。
 \item \fbox{403 Forbidden} 不允许用户操作，比如一个用户无法另一个用户的文档。
-\item \fbox{200 ok} 表示 \fbox{GET}、\fbox{PUT}、\fbox{DELETE}操作成功。
-\item \fbox{200 ok} 表示 \fbox{GET}、\fbox{PUT}、\fbox{DELETE}操作成功。
-\item \fbox{200 ok} 表示 \fbox{GET}、\fbox{PUT}、\fbox{DELETE}操作成功。
-\item \fbox{200 ok} 表示 \fbox{GET}、\fbox{PUT}、\fbox{DELETE}操作成功。
+\item \fbox{404 Not Found} 请求的资源不存在。
+\item \fbox{405 Method Not Allowed} 系统不支持的请求，比如对一个属性执行添加请求。
+\item \fbox{409 Conflict} 资源冲突，比如添加同名的文档。
+\item \fbox{500 Server Error} 处理某些请求时，服务器端发生了错误。
 \item \fbox{200 ok} 表示 \fbox{GET}、\fbox{PUT}、\fbox{DELETE}操作成功。
 \end{itemize}
 
