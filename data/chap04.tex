@@ -151,7 +151,19 @@ nosql的主要特点包括非关系型、分布式、开源、水平可扩展。
 \section{RESTful api}
 \label{sec:apitable}
 
-本系统的核心架构就是一个RESTful的web service。通过这个标准的api，任何系统都可以调用本系统中用户数据和文档数据。同时它也是所有本地客户端程序访问系统的标准接口。关于RESTful api是什么，有什么样的好处，有多么流行，在前文中已经介绍过了。下面就用一个表格~\ref{tab:api}描述一下本系统实现的RESTful api中有那些资源，这些资源获取和操作的方式是什么样的。
+本系统的核心架构就是一个RESTful的web service。通过这个标准的api，任何系统都可以调用本系统中用户数据和文档数据。同时它也是所有本地客户端程序访问系统的标准接口。关于RESTful api是什么，有什么样的好处，有多么流行，在前文中已经介绍过了。所以本节就直接进入主题，通过通过统一资源地址、返回内容、认证、状态码四个方面介绍本系统的api。
+\subsection{统一资源地址}
+\label{sec:researchurl}
+RESTful规定对系统的操作有两个部分表达，资源的地址和对该地址执行的操作。地址为一个标准的URL。而操作则用HTTP协议中标准的几个动词来表达 新建、获取、修改、删除等操作，下面列出系统对于不同的操作将采取什么样的行为。
+\begin{itemize}
+\item \fbox{GET} 获取一个或者一些资源，系统将返回\fbox{200 ok}请求的数据。
+\item \fbox{POST} 添加资源，系统将在成功添加资源后返回\fbox{201 Created}并且返回被添加的资源的数据。
+\item \fbox{PUT} 修改指定的资源，系统将在成功修改资源后返回\fbox{200 ok}并且返回被修改的资源的数据。
+\item \fbox{DELETE} 删除制定的资源，本系统对于删除操作采用的幂等\footnote{简单的说，就是无论对同样的资源操作多少次，结果都一样}的。也就是说无论要删除的资源是否存在，系统都返回\fbox{200 ok}，表示删除成功。
+\end{itemize}
+
+
+上面简单描述了对资源所做操作的类型，下面将用表格~\ref{tab:api}描述一下本系统实现的RESTful api中有那些资源，这些资源获取和操作的方式是什么样的，以及可选的参数和备注。
 
 \begin{table}[H]
   \centering
@@ -164,8 +176,71 @@ nosql的主要特点包括非关系型、分布式、开源、水平可扩展。
   \label{tab:api}
 \end{table}
 
-对于以上URL系统支持多种格式的返回内容，可以返回atom,xml,json等格式，由于篇幅原因这里就不一一展示各种格式的返回内容了。
+\subsection{返回的内容}
+\label{sec:content}
 
+对于以上URL系统支持多种格式的返回内容，可以返回atom,xml,json等格式，由于篇幅原因这里就不一一展示各种格式的返回内容了。下面以一个用户信息的json返回结果为例说明：
+\begin{bframe}
+
+[\\
+    \{\\
+        ``id``: 1,\\
+        "username": "steve\_ma",\\
+        "email": "steve2008.ma@gmail.com",\\
+        "name": "马胜",\\
+        "ident\_no": "040191",\\
+        "department": "图书馆",\\
+        "major": "计算机",\\
+        "blocked": false,\\
+        "created\_at": "2012-05-23T08:00:58Z",\\
+        "qq": "",\\
+        "weibo": "",\\
+        "dark\_scheme": false,\\
+        "pingyin": "masheng",\\
+        "provider": "p",\\
+        "theme\_id": 1\\
+       \},\\
+       \{\\
+        ``id``: 2,\\
+        "username": "xulinyin",\\
+        "email": "xuly@tju.edu.cn",\\
+        "name": "许林英",\\
+        "ident\_no": "0000000",\\
+        "department": "计算机学院",\\
+        "major": "计算机",\\
+        "blocked": false,\\
+        "created\_at": "2012-05-23T08:00:58Z",\\
+        "qq": "",\\
+        "weibo": "",\\
+        "dark\_scheme": false,\\
+        "pingyin": "xu lin ying",\\
+        "provider": "p",\\
+        "theme\_id": 1\\
+      \},\\
+]\\
+\end{bframe}
+
+\subsection{认证}
+\label{sec:anth}
+
+系统大部分url的访问需要身份认证，用户需要发送\fbox{private\_token}参数。可以把该参数放到URL中，也可以放入请求头信息中，如果放入请求头信息中，它的名字必须是\fbox{PRIVATE-TOKEN}。如果应该发送该参数的地方没有提供该参数，或者认证不通过，系统将返回\fbox{401}错误码，并且返回错误信息\fbox{"401 Unauthorized"}。
+
+\subsection{状态码}
+\label{sec:statuscodes}
+
+本系统的api被设计成根据不同的环境和操作返回不同的状态码，在这种模式下，如果错误的请求了一个资源，那么通过返回的结构，客户端程序可以洞悉到发生来什么样的错误。例如，错误码\fbox{400  Bad  Request}代表着，请求的资源不存在。下面就列出系统可能返回的状态码，及其表达的含义。
+\begin{itemize}
+\item \fbox{200 ok} 表示 \fbox{GET}、\fbox{PUT}、\fbox{DELETE}操作成功。
+\item \fbox{201 Created} 表示 \fbox{POST}操作成功。
+\item \fbox{400 Bad Request} 表示一个被请求的资源不存在。
+\item \fbox{401 Unauthorized} 用户没有经过身份验证。
+\item \fbox{403 Forbidden} 不允许用户操作，比如一个用户无法另一个用户的文档。
+\item \fbox{200 ok} 表示 \fbox{GET}、\fbox{PUT}、\fbox{DELETE}操作成功。
+\item \fbox{200 ok} 表示 \fbox{GET}、\fbox{PUT}、\fbox{DELETE}操作成功。
+\item \fbox{200 ok} 表示 \fbox{GET}、\fbox{PUT}、\fbox{DELETE}操作成功。
+\item \fbox{200 ok} 表示 \fbox{GET}、\fbox{PUT}、\fbox{DELETE}操作成功。
+\item \fbox{200 ok} 表示 \fbox{GET}、\fbox{PUT}、\fbox{DELETE}操作成功。
+\end{itemize}
 
 
 由于篇幅的原因，本章并没有把系统的全部实现细节全部介绍给读者，而只选取本系统最核心，也是最有特点的两个部分进行来介绍。关于系统许多其他的细节本人计划在系统正式上线后，写到本人在系统的空间中。
