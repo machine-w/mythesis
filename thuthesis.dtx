@@ -2472,7 +2472,7 @@
   \def\thu@assosuper@title{副指导教师}
 \fi
 \def\thu@cosuper@title{%
-  \ifthu@doctor 联合导师\else \ifthu@master 联合指导教师\fi\fi}
+  \ifthu@doctor 企业导师\else \ifthu@master 企业导师\fi\fi}
 \cdate{\ifthu@bachelor\CJK@todaysmall\else\CJK@todaybig@short\fi}
 \edate{\ifcase \month \or January\or February\or March\or April\or May%
        \or June\or July \or August\or September\or October\or November
@@ -2676,6 +2676,7 @@
         \@put@covertitle{\thu@major@title} & \thu@cmajor \\
         \@put@covertitle{\thu@author@title} & \thu@cauthor \\
         \@put@covertitle{\thu@supervisor@title} & \thu@csupervisor \\
+        \@put@covertitle{\thu@cosuper@title} & \thu@ccosupervisor \\
       \end{tabular}
       }
      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
