@@ -2,13 +2,13 @@
 \chapter{系统实现}
 \label{chap:achieve}
 
-上文介绍了本系统的系统架构和逻辑功能。本章我们将进行部分的系统功能实现。由于本系统结构庞大，功能复杂，涉及许多不同体系的技术，所以限于篇幅有限，我们并不打算把系统涉及到的全部实现细节一一介绍。而只介绍其中最核心的，和最具有代表性的部分。
+上文介绍了本系统的系统架构和逻辑功能。本章本人将进行部分的系统功能实现。由于本系统结构庞大，功能复杂，涉及许多不同体系的技术，所以限于篇幅有限，本人并不打算把系统涉及到的全部实现细节一一介绍。而只介绍其中最核心的，和最具有代表性的部分。
 
-由于基于\smarkdown的文档撰写是本系统区别其他网络文档管理平台的最大特点。而且由于\smarkdown语法是本文作者在Markdown语法基础上扩展而来。所以介绍\smarkdown语法和它如何被渲染展示和如何被转换成\LaTeX,再进一步转换成最终的PDF文档将是我们本章介绍的重点。
+由于基于\smarkdown的文档撰写是本系统区别其他网络文档管理平台的最大特点。而且由于\smarkdown语法是本文作者在Markdown语法基础上扩展而来。所以介绍\smarkdown语法和它如何被渲染展示和如何被转换成\LaTeX,再进一步转换成最终的PDF文档将是本人本章介绍的重点。
 
 由于Restful api\cite{richardson2008restful,allamaraju2010restful,fielding2000architectural,pautasso2008restful,story2009foaf}是本系统的核心架构，所以api的实现也将是本章重点介绍的内容。
 
-但是在介绍这两个部分之前，我们还是先来了解一下本系统主要涉及的技术，以及用到的编程语言，框架，和组件。
+但是在介绍这两个部分之前，本人还是先来了解一下本系统主要涉及的技术，以及用到的编程语言，框架，和组件。
 
 \section{系统涉及的实现技术}
 \label{sec:language}
@@ -18,7 +18,7 @@
 \subsection{web service服务端}
 \label{sec:webservice}
 
-上文介绍过，本系统基本架构为restful的web服务。目前支持restful的编程语言和成型的开源架构很多，比如ROR、Python、java、.net等等。本系统选择的后端开发框架为Ruby on Rails,官方简称Rails\cite{ruby2009agile,hartl2012ruby}，非RoR。它是使用Ruby\cite{thomas2004programming}脚本语言\footnote{一种为简单快捷面向对象编程而创的脚本语言，在20世纪90年代由日本人松本行弘开发。}所开发的Web开发框架。Rails是一套专业的开发框架，采用了MVC(Model-View-Control)模式、原生支持单元测试和整体测试、支持Ajax和RESTful结构、ORM机制，以及支持各种最新的业界标准像是HTML5、JQuery等等功能。它的发明人是David Heinemeier Hanson(DHH)，DHH是2004年将Rails从37signals商业产品中独立出来的开源项目。它的设计目标是只要开发者熟悉它的惯例，就可以快速的开发网站。相比其他的语言和框架，Rails可以让你用更少的编码实现更多的功能。
+上文介绍过，本系统基本架构为restful的web服务。目前支持restful的编程语言和成型的开源架构很多，比如ROR、Python、java、.net等等。本系统选择的后端开发框架为Ruby on Rails,官方简称Rails\cite{ruby2009agile,hartl2012ruby}，非正式叫法：RoR。它是使用Ruby\cite{thomas2004programming}脚本语言\footnote{一种为简单快捷面向对象编程而创的脚本语言，在20世纪90年代由日本人松本行弘开发。}所开发的Web开发框架。Rails是一套专业的开发框架，采用了MVC(Model-View-Control)模式、原生支持单元测试和整体测试、支持Ajax和RESTful结构、ORM机制，以及支持各种最新的业界标准像是HTML5、JQuery等等功能。它的发明人是David Heinemeier Hanson(DHH)，DHH是2004年将Rails从37signals商业产品中独立出来的开源项目。它的设计目标是只要开发者熟悉它的惯例，就可以快速的开发网站。相比其他的语言和框架，Rails可以让你用更少的编码实现更多的功能。
 
 选择Ruby on Rails的重要原因是：
 \begin{itemize}
@@ -32,7 +32,7 @@
 \subsection{数据库}
 \label{sec:database}
 
-本系统在数据库的使用上与传统的信息管理系统不同，我们将使用传统关系型数据库和非关系型数据库（nosql）相结合的方法。关系型数据库我们将使用开源的数据库mysql\cite{dubois2003mysql}。关于这个数据库这里不过多的介绍，它是目前业界最常使用的开源关系型数据库系统。关于nosql,下面简单的做一个介绍。
+本系统在数据库的使用上与传统的信息管理系统不同，本人将使用传统关系型数据库和非关系型数据库（nosql）相结合的方法。关系型数据库本人将使用开源的数据库mysql\cite{dubois2003mysql}。关于这个数据库这里不过多的介绍，它是目前业界最常使用的开源关系型数据库系统。关于nosql,下面简单的做一个介绍。
 
 nosql的主要特点包括非关系型、分布式、开源、水平可扩展。第一次看到这个名字，很多人都会认为nosql\cite{tiwari2011professional,strauch2011nosql,membrey2010definitive}是“no sql”的简写，所以认为它是sql数据库的替代品，但实际上它是“not only sql”的简写，意思是不止用sql。它的出现主要是弥补关系型数据库的诸多缺点和不足：
 \begin{enumerate}
@@ -44,7 +44,7 @@ nosql的主要特点包括非关系型、分布式、开源、水平可扩展。
 \item nosql易于数据分散，可以通过简单的横向扩展来提高系统性能，而且读写性能均可以通过增加硬件规模和性能来得到线性的提升。
 \item nosql可以轻松应对字段不固定的应用。
 \end{enumerate}
-通过第三章的介绍，我们知道，我们的系统既是一个高并发写入的SNS类的应用，同时也是一个字段不固定的应用。所以同时使用关系型数据库和nosql将很好的解决系统数据存储的问题。
+通过第三章的介绍，本人知道，本人的系统既是一个高并发写入的SNS类的应用，同时也是一个字段不固定的应用。所以同时使用关系型数据库和nosql将很好的解决系统数据存储的问题。
 
 
 目前常用的nosql数据库大致分为四种：
@@ -54,7 +54,7 @@ nosql的主要特点包括非关系型、分布式、开源、水平可扩展。
 \item Document-oriented面向文档,最常用的MongoDB 和 CouchDB。
 \item Graph-oriented 面向图论， 如Neo4J。
 \end{enumerate}
-我们系统主要是用的是MongoDB\cite{banker2011mongodb,chodorow2010mongodb,wei2011using}这个面向文档的数据库。一方面，它是目前业界最广泛使用的nosql数据库。另外一方面，它面向文档的数据结构可以不用第一表结构，也支持复杂的查询条件，比较吻合本系统的需求。
+本人系统主要是用的是MongoDB\cite{banker2011mongodb,chodorow2010mongodb,wei2011using}这个面向文档的数据库。一方面，它是目前业界最广泛使用的nosql数据库。另外一方面，它面向文档的数据结构可以不用第一表结构，也支持复杂的查询条件，比较吻合本系统的需求。
 
 \subsection{WEB前端}
 \label{sec:webui}
@@ -75,7 +75,7 @@ nosql的主要特点包括非关系型、分布式、开源、水平可扩展。
 \subsection{pc客户端和移动客户端}
 \label{sec:pcandriodmac}
 
-各种本地客户端程序可以通过标准的RESTful api访问系统数据。任何组织和个人在经过许可的情况下都可以开发并发布本系统的客户端程序。除此以外，我们也会提供官方的客户端程序。根据用户操作习惯的不同那个可以选择WEB方式或者本地客户端形式访问系统。下面简单介绍一下各种本地程序所使用的技术：
+各种本地客户端程序可以通过标准的RESTful api访问系统数据。任何组织和个人在经过许可的情况下都可以开发并发布本系统的客户端程序。除此以外，本人也会提供官方的客户端程序。根据用户操作习惯的不同那个可以选择WEB方式或者本地客户端形式访问系统。下面简单介绍一下各种本地程序所使用的技术：
 \begin{description}
 \item[windows客户端] 主要采用c\#语言配合客户端界面的控件实现。
 \item[Linux客户端] 使用C++和qt用户界面库实现。
@@ -91,7 +91,7 @@ nosql的主要特点包括非关系型、分布式、开源、水平可扩展。
 
 \smarkdown是以markdown语法为基础，并增加了学术文档中常用的表格、脚注、参考文献、代码块、属性列表、目录等语法内容，并且可以添加\LaTeX语法片段和文章属性字段。文章属性字段通过Liquid模板语言嵌入到文档中，并通过预处理机制替换成实际的内容。然后把替换后的文本交由\smarkdown引擎处理成xhtml格式进行显示。下面就分markdown基础语法、smarkdown扩展语法、嵌入属性语法、嵌入\LaTeX语法几个部分分别进行介绍。
 
-\subsection{markdown基础语法}
+\subsection{markdown基础语法研究}
 \label{sec:markdownbase}
 
 \begin{description}
