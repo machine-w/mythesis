@@ -277,6 +277,36 @@
 
 \LaTeX数学片段的语法很简单，直接把行内\LaTeX数学公式源代码写到文档中以\$为标志的区间内就可以。区间内的公式片段将保留到\LaTeX编译阶段直接输出公式。而将独立公式放入以\$\$.....\$\$或者[.....]的区块中就可以。
 
+\section{\smarkdown编译器实现}
+\label{sec:compiler}
+
+本系统使用ruby语言实现\smarkdown的语法编译器实现，可以把\smarkdown格式的文本编译成标准的HTML格式和LATEX语法格式。编译器的编译过程基本分成如下几个步骤完成，如图~\ref{fig:xfig14}所示：
+\begin{figure}[H]
+  \centering
+  \includegraphics{compiler}
+  \caption{编译器原理}
+  \label{fig:xfig14}
+\end{figure}
+\begin{enumerate}
+\begin{enumerate}
+\item 词法分析，通过正则表达式进行词法分析，确定每段文字的格式类型。
+\item 根据特定的格式类型，构建确定类型的语法节点，并把文本转化为语法节点树。
+\item 进行语法分析，把语法节点树根据要求的转换类型，转换为目标语言的语法节点树。
+\item 根据目标语言的语法节点信息，构建最终的目标语言格式文件。
+\end{enumerate}
+
+以下为一个对于标题格式的\smarkdown的html编译为例简单说明以下编译器的运行过程：
+\begin{bframe}
+  原始的\smarkdown标题格式\\
+         标题1\\
+         ==========\\
+         标题2\\
+         ----------  \\
+ 编译后的html格式\\
+        <h1>标题1</h2>\\
+        <h2>标题2</h2>\\
+\end{bframe}
+
 \section{RESTful api}
 \label{sec:apitable}
 
