@@ -296,6 +296,7 @@
 \end{enumerate}
 
 以下为一个对于标题格式的\smarkdown的html编译为例简单说明以下编译器的运行过程：
+
 \begin{bframe}
   原始的\smarkdown标题格式\\
          标题1\\
@@ -306,6 +307,52 @@
         <h1>标题1</h2>\\
         <h2>标题2</h2>\\
 \end{bframe}
+
+下面为具体的实现过程：首先通过正则表达式分析标题的语法，并返回标题类型
+
+\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, frame=shadowbox, rulesepcolor=\color{red!20!green!20!blue!20}]
+      return :header1        if self =~ /^(=)+/
+      return :header2        if self =~ /^([-\ s])+\$/
+      return :header3        if self =~ /^(#)+\s*\S+/
+
+\end{lstlisting}
+
+然后根据获取到的标题类型，转换不同的格式
+
+\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, frame=shadowbox, rulesepcolor=\color{red!20!green!20!blue!20}]
+    line = src.shift_line.strip
+    //获取标题标志上一行的内容
+    text = parse_span line
+    //把标题的内容过滤特殊字符并存入变量
+    level = src.cur_line.md_type == :header2 ? 2 : 1;
+    //获取标题级别
+    md_header(level, text, al)
+    //调用函数转换成需要的格式
+
+\end{lstlisting}
+
+然后把内容转换成markdown语法节点类型
+
+\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, frame=shadowbox, rulesepcolor=\color{red!20!green!20!blue!20}]
+
+  e = MDElement.new(node_type, children, meta, al)
+
+\end{lstlisting}
+
+最后根据需要输出html标题格式
+
+\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, frame=shadowbox, rulesepcolor=\color{red!20!green!20!blue!20}]
+
+  def to_html_header
+    element_name = "h#{self.level}"
+    h = wrap_as_element element_name
+    if span = render_section_number
+      h.children.first.before(span)
+    end
+    add_ws h
+  end
+
+\end{lstlisting}
 
 \section{RESTful api}
 \label{sec:apitable}
