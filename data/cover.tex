@@ -19,22 +19,23 @@
 \begin{cabstract}
 近年来,随着WEB2.0和云计算技术迅速发展,个人文档的撰写、保存和分享模式也发生了很大的变化,越来越多的人习惯于在网上撰写文档、保存文档和分享文档。高校文档云服务平台的开发的目标是改善现有高校的文档管理模式，为高校教师、学生提供一个高效率、高性能的文档管理与服务的应用平台。
 
-论文首先综述了Smarkdown标记语言、LATEX和社交的网络等技术 ，Smarkdown标记语言简化了用户撰写文档的方式，LATEX技术提供了丰富的排版功能，云端存储的方式提供了用户文档的存储，社交网络技术解决了文档的分享。本文集成以上技术，提出了一个文档管理与服务的应用平台的需求和解决方案。该平台采用Ruby on Rails开发框架作为基本开发平台，采用非关系型数据库MongoDB和Mysql数据库联合作为后台数据存储，前端界面采用Bootstrap页面框架，并配合Liquid模版语言配置灵活的主题模版，以提供了用好的用户界面。设计了一个扩展的Smarkdown标记语言，并实现了其编译器；设计了一个开放的RESTful应用程序接口, 可方便地与其他系统无缝对接，并实现了相应的移动客户端和PC客户端。
+论文首先综述了Smarkdown标记语言、LATEX和社交的网络等技术 ，Smarkdown标记语言简化了用户撰写文档的方式，LATEX技术提供了丰富的排版功能，云端存储的方式提供了用户文档的存储，社交网络技术解决了文档的分享。本文集成以上技术，提出了一个文档管理与服务的应用平台的需求和解决方案。该平台采用Ruby on Rails开发框架作为基本开发平台，采用非关系型数据库MongoDB和Mysql数据库联合作为后台数据存储，前端界面采用Bootstrap页面框架，并配合Liquid模版语言配置灵活的主题模版，以提供友好的用户界面。设计了一个扩展的Smarkdown标记语言，并实现了其编译器；设计了一个开放的RESTful应用程序接口, 可方便地与其他系统无缝对接，并实现了相应的移动客户端和PC客户端。
 
 高校文档云服务平台的关键功能已经完成，并完成了基本系统的部署，相关的用户试用的结果表明该平台已经达到了设计的目标。随着平台的进一步应用，增加对Ｒ语言的支持，提供项目管理、课程管理、考试管理、个人行为管理等人性化的功能。
 \end{cabstract}
 
-\ckeywords{\smarkdown, \LaTeX, 模版, 云笔记, restful, ruby on rails, mongodb}
+\ckeywords{\smarkdown标记语言, LATEX, 模版, 云笔记, ruby on rails, mongodb}
 
 \begin{eabstract}
-With the popularity of web2.0 websites and progressive development of cloud computing model in recent years, it has changed and advanced in the mode of writing, preserving and sharing of personal documents. AS more and more people prefer online writing, preserving and sharing of personal documents, a lot of popular online cloud services have emerged just like github, markdown language, cloud note and network disk. These services pay more attention to the writing, preserving and sharing of personal documents compared the social network sites and offer great facilities for our document management.
+With the popularity of web2.0 websites and progressive development of cloud computing model in recent years, it has changed and advanced in the mode of writing, preserving and sharing of personal documents. AS more and more people prefer online writing, preserving and sharing of personal documents. 
+The cloud social network platform for University Document's target is to improve the mode of university's documents management, to provide a high-performance,effective application platform. 
 
-This platform use Rails on Ruby frame to develop kernel function. the procedure is agile development.  The platform provide a web service of  RESTful api. Other application platform can connect this platform access a simple way.The database of this platform is MYSQL and Mongodb that is a nosql database.because they can provide best performance and maximum flexibility.The WEB interface of this platform achieve with bootstrap and Liquid template language, to provide better UE(user experience). In addition,this platform provide many native application for computer with different OS and mobile devices. The data in the platform can be accessed in many devices.This platform's best feature is users can write documents with  \smarkdown{} language. Then can convert the document to formative PDF  with \LaTeX{} template.it will provide a new user experience with writing document.
+This thesis describe the technology of Smarkdown language and LATEX and social network. the Smarkdown language simplify writing documents, the LATEX provide a effective document preparation system,the cloud storage resolve the problem of  document's storage, and the social network resolve the problem of document's sharing. compositing these technology, the thesis present a solution of management and service to documents.This platform use Rails on Ruby frame to develop kernel function. the procedure is agile development. The database of this platform is MYSQL and Mongodb that is a nosql database.The WEB interface of this platform achieve with bootstrap and Liquid template language, to provide better UE(user experience). In addition,this platform provide a extensional Smarkdown language and achieve its compiler; The platform design a web service of  RESTful api. Other application platform can connect this platform access a simple way, and achieve many native application for computer with different OS and mobile devices,The data in the platform can be accessed in many devices.
 
-After the platform achieve all system  feature and have a certion amount of user documents, this platform will develop with data analysis field , to evolve into  a intellegence platform. By the moment, this platform will can provide some interesting data. i n addition, the platform will also add support on R language, project management, class management, examine management, individual behavior management. This platform will play a better role in documents management of professor and academician in university.
+the platform have achieved all primary system  feature and deployed and had a certion amount of user documents.some testing of user show that this platform have achieve the target of designing. in addition, the platform will also add support on R language, project management, class management, examine management, individual behavior management.
 \end{eabstract}
 
-\ekeywords{\smarkdown, \LaTeX, template, cloudnote, restful, ruby on rails, mongodb }
+\ekeywords{\smarkdown language, LATEX, template, cloudnote, ruby on rails, mongodb }
 \declaretitle{独创性声明}
 \declarecontent{
 本人声明所呈交的学位论文是本人在导师指导下进行的研究工作和取得的研究成果，除了文中特别加以标注和致谢之处外，论文中不包含其他人已经发表或撰写过的研究成果，也不包含为获得 {\underline{\kai\textbf{~天津大学~}}}或其他教育机构的学位或证书而使用过的材料。与我一同工作的同志对本研究所做的任何贡献均已在论文中作了明确的说明并表示了谢意。

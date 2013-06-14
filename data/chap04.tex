@@ -295,7 +295,11 @@
 \item 根据目标语言的语法节点信息，构建最终的目标语言格式文件。
 \end{enumerate}
 
-以下为一个对于标题格式的\smarkdown的html编译为例简单说明以下编译器的运行过程：
+以下为一个对于标题格式的\smarkdown的html编译为例.
+
+简单说明以下编译器的运行过程：
+
+下面为具体的实现过程：首先通过正则表达式分析标题的语法，并返回标题类型
 
 \begin{bframe}
   原始的\smarkdown标题格式\\
@@ -308,9 +312,9 @@
         <h2>标题2</h2>\\
 \end{bframe}
 
-下面为具体的实现过程：首先通过正则表达式分析标题的语法，并返回标题类型
 
-\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, frame=shadowbox, rulesepcolor=\color{red!20!green!20!blue!20}]
+
+\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50},rulesepcolor=\color{red!20!green!20!blue!20}]
       return :header1        if self =~ /^(=)+/
       return :header2        if self =~ /^([-\ s])+\$/
       return :header3        if self =~ /^(#)+\s*\S+/
@@ -319,7 +323,7 @@
 
 然后根据获取到的标题类型，转换不同的格式
 
-\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, frame=shadowbox, rulesepcolor=\color{red!20!green!20!blue!20}]
+\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, rulesepcolor=\color{red!20!green!20!blue!20}]
     line = src.shift_line.strip
     //获取标题标志上一行的内容
     text = parse_span line
@@ -333,7 +337,7 @@
 
 然后把内容转换成markdown语法节点类型
 
-\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, frame=shadowbox, rulesepcolor=\color{red!20!green!20!blue!20}]
+\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, rulesepcolor=\color{red!20!green!20!blue!20}]
 
   e = MDElement.new(node_type, children, meta, al)
 
@@ -341,7 +345,7 @@
 
 最后根据需要输出html标题格式
 
-\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, frame=shadowbox, rulesepcolor=\color{red!20!green!20!blue!20}]
+\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, rulesepcolor=\color{red!20!green!20!blue!20}]
 
   def to_html_header
     element_name = "h#{self.level}"
@@ -371,8 +375,10 @@ RESTful规定对系统的操作有两个部分表达，资源的地址和对该�
 
 上面简单描述了对资源所做操作的类型，下面将用表格~\ref{tab:api}描述一下本系统实现的RESTful api中有那些资源，这些资源获取和操作的方式是什么样的，以及可选的参数和备注。
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
+  \caption{系统api}
+  \label{tab:api}
   \begin{tabular}{|c|c|c|c|}\hline
     URL & 命令  & 对URL进行的动作 & 备注\\\hline
     \char92 users & GET & 获取用户列表 & page和per\_page \\\hline
@@ -399,8 +405,6 @@ RESTful规定对系统的操作有两个部分表达，资源的地址和对该�
     \char92 folders\char92 :id\char92 documents\char92 :d\_id\char92 attributes & GET & 查看文档属性列表 & \\\hline
     \char92 folders\char92 :id\char92 documents\char92 :d\_id\char92 attributes & PUT  & 编辑文档属性列表 &  \\\hline
   \end{tabular}
-  \caption{系统api}
-  \label{tab:api}
 \end{table}
 以上表格内容为本系统最基本api资源，完成的资源列表，将在本系统发布后，由api文档给出。
 \subsection{返回的内容}
@@ -427,23 +431,6 @@ RESTful规定对系统的操作有两个部分表达，资源的地址和对该�
         "provider": "p",\\
         "theme\_id": 1\\
        \},\\
-       \{\\
-        ``id``: 2,\\
-        "username": "xulinyin",\\
-        "email": "xuly@tju.edu.cn",\\
-        "name": "许林英",\\
-        "ident\_no": "0000000",\\
-        "department": "计算机学院",\\
-        "major": "计算机",\\
-        "blocked": false,\\
-        "created\_at": "2012-05-23T08:00:58Z",\\
-        "qq": "",\\
-        "weibo": "",\\
-        "dark\_scheme": false,\\
-        "pingyin": "xu lin ying",\\
-        "provider": "p",\\
-        "theme\_id": 1\\
-      \},\\
 ]\\
 \end{bframe}
 
