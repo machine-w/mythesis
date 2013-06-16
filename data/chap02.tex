@@ -91,31 +91,14 @@ Word 从问世到现在不断地更新版本，并经常要求下载补丁程序
 
 它实际上是个非常简单、非常容易学习的语法。这个语法简单到每个人都可以在5分钟以内学会。更重要的是，Markdown语法所有要素，是与写作的习惯一脉相承的，套用句俗语“仅为写作而生”。
 
-Markdown诞生于互联网时代，更是由深谙互联网文本之道的John Gruber等人设计。因为Ruby与github\footnote{是一个用于使用Git版本控制系统项目的共享虚拟主机服务。它由GitHub公司（曾称Logical Awesome）的开发者Chris Wanstrath、PJ Hyett和Tom Preston-Werner使用Ruby on Rails编写而成}圈的极客们的热捧，以及来自github、Stackoverflow等的大力支持。从一开始，就建立一个完整的生态链。可以这么说，Markdown之所以在近些年如此流行是和互联网以及web 2.0的普及分不开的。因为人们习惯于在网络上写博客，写微博，写云端笔记，才有了对于更好更便捷的表达自己想法的工具的诉求。也就是要求既可以方便的显示文本的内容也可以很容易的控制文本的样式。下面简单演示一下Markdown的效果：
+Markdown诞生于互联网时代，更是由深谙互联网文本之道的John Gruber等人设计。因为Ruby与github\footnote{是一个用于使用Git版本控制系统项目的共享虚拟主机服务。它由GitHub公司（曾称Logical Awesome）的开发者Chris Wanstrath、PJ Hyett和Tom Preston-Werner使用Ruby on Rails编写而成}圈的极客们的热捧，以及来自github、Stackoverflow等的大力支持。从一开始，就建立一个完整的生态链。可以这么说，Markdown之所以在近些年如此流行是和互联网以及web 2.0的普及分不开的。因为人们习惯于在网络上写博客，写微博，写云端笔记，才有了对于更好更便捷的表达自己想法的工具的诉求。也就是要求既可以方便的显示文本的内容也可以很容易的控制文本的样式。图~\ref{fig:xfiga1}简单演示一下Markdown的效果：
 
-\begin{bframe}
-  \noindent
-  标题\\
-  ==============\\
-  附标题\\
-  -----------\\
-  开始书写正文吧\\
-  当然也可以用 *列表* 的形式：\\
-  1.   列表项目\\
-  2.   还是列表项目\\
-\end{bframe}
-{\noindent 查看时的效果:}
-\begin{bframe}
-  \noindent
-  {\erhao 标题}\\
-  {\sanhao 附标题}\\
-  开始书写正文吧\\
-  当然也可以用 {\bfseries 列表} 的形式：
-  \begin{enumerate}
-  \item 列表项目
-  \item 还是列表项目
-  \end{enumerate}
-\end{bframe}
+\begin{figure}[H]
+  \centering
+  \includegraphics{markdown}
+  \caption{markdown语法演示}
+  \label{fig:xfiga1}
+\end{figure}
 很显然，Markdown用很简单好记的标记就能实现一般情况下的文本格式排版，一切就这么简单。Markdown之所以在被鼓吹之后，越来越流行，不是因为它复杂，而是因为它足够简单。
 
 Markdown虽然使用简单，但是其语法中只定义了日常排版最常用的一些情况，比如标题、段落、列表、强调、贴图等。缺乏一些我们科技排版中必要的元素，比如：表格、参考文献、脚注等。这也正是本文作者要对其进行扩展的原因所在。扩展后的Markdown语法，更加适合科技文献的编写。而且也保留了Markdown语法的简洁性，可以很快掌握。关于具体的Markdown语法和扩展后的\smarkdown语法，本文将在下面系统实现的章节详细介绍。

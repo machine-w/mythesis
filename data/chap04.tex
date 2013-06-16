@@ -240,26 +240,15 @@
 \label{sec:smarkdownextr}
 
 \begin{description}
-\item[表格] 如下例子所示，表格第一行包含列标题，第二行包含位于标题和内容之间的强制性分隔线，接下来的每一行就是表格的内容。列与列之间用竖线 | 分隔。如果愿意的话，可以在表格每一行的开头和结尾处添加竖线 |。输出的结果一样。通过在对应列的分隔线添加冒号 : 可以指定列的对齐方式。冒号 : 在分隔线的左边说明此列左对齐，冒号 : 在分隔线的右边说明此列右对齐，冒号 : 在分隔线的左右两边说明此列居中。
-  \begin{bframe}
-    Col1     |                  标题                   |               标题                  |\\
-    - - - - -|:- - - - - - - - - - - - - - - - - - - :|- - - - - - - - - - - - - - - - - -:|\\
-    cell     |                中间对齐                 |              右对齐                 |\\
-  \end{bframe}
+\item[表格] 如下例子所示，表格第一行包含列标题，第二行包含位于标题和内容之间的强制性分隔线，接下来的每一行就是表格的内容。列与列之间用竖线 | 分隔。如果愿意的话，可以在表格每一行的开头和结尾处添加竖线 |。输出的结果一样。通过在对应列的分隔线添加冒号 : 可以指定列的对齐方式。冒号 : 在分隔线的左边说明此列左对齐，冒号 : 在分隔线的右边说明此列右对齐，冒号 : 在分隔线的左右两边说明此列居中。如图~\ref{fig:xfiga2}
+  \begin{figure}[H]
+  \centering
+  \includegraphics{biaoge}
+  \caption{扩展表格语法}
+  \label{fig:xfiga2}
+\end{figure}
 \item[脚注] 脚注是在需要标记脚注文字的后面增加一个方括号，方括号中的内容必须以  \^{} 开头，再接着是数字、字符串标记，接着，在文件的任意地方，你可以把这个脚注的内容定义出来.例如：
-  \begin{bframe}
-    Footnotes[\^{} 1] have a label[ \^{}label] and a definition[\^{}!DEF]\\
-    %[\^{} 1] This is a footnote
-    %[\^{}label]: A footnote on "label"\\
-    %[\^{}!DEF]: The definition of a footnote.\\
-  \end{bframe}
 \item[高亮代码块] 使用反引号，加语言名。支持多种语言，比如 python, c, html 等,。
-  \begin{bframe}
-    ```python\\
-   def hello():\\
-    return 'Hello World'\\
-    ```\\
-  \end{bframe}
 \item[属性列表] 定义 HTML 元素的属性。可以自定义文本内容的id和css类。
 \item[目录] 在需要目录出现的地方放置一个标记，这样会自动生成一个嵌套的包含所有标题的列表。默认的标记是 [TOC]。目录跳转的标题 id 是依据标题内容自动生成的，只包含英文、数字、下划线 \_ 等。对于全部是中文的标题，自动生成的标题 id 为空，导致无法跳转。可以使用属性列表方法，定义标题 id。
 \end{description}
@@ -295,68 +284,40 @@
 \item 根据目标语言的语法节点信息，构建最终的目标语言格式文件。
 \end{enumerate}
 
-以下为一个对于标题格式的\smarkdown的html编译为例.
+以下为一个对于标题格式的\smarkdown的html编译为例简单说明以下编译器的运行过程,如图~\ref{fig:xfiga3}：
 
-简单说明以下编译器的运行过程：
+\begin{figure}[H]
+  \centering
+  \includegraphics{markdownc}
+  \caption{编译实例}
+  \label{fig:xfiga3}
+\end{figure}
 
-下面为具体的实现过程：首先通过正则表达式分析标题的语法，并返回标题类型
+下面为具体的实现过程：首先通过正则表达式分析标题的语法，并返回标题类型,如图~\ref{fig:xfiga4}:
 
-\begin{bframe}
-  原始的\smarkdown标题格式\\
-         标题1\\
-         ==========\\
-         标题2\\
-         ----------  \\
- 编译后的html格式\\
-        <h1>标题1</h2>\\
-        <h2>标题2</h2>\\
-\end{bframe}
+\begin{figure}[H]
+  \centering
+  \includegraphics{code1}
+  \caption{代码片段1}
+  \label{fig:xfiga4}
+\end{figure}
 
+然后根据获取到的标题类型，转换不同的格式，如图~\ref{fig:xfiga5}：
 
+\begin{figure}[H]
+  \centering
+  \includegraphics{code2}
+  \caption{代码片段2}
+  \label{fig:xfiga5}
+\end{figure}
 
-\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50},rulesepcolor=\color{red!20!green!20!blue!20}]
-      return :header1        if self =~ /^(=)+/
-      return :header2        if self =~ /^([-\ s])+\$/
-      return :header3        if self =~ /^(#)+\s*\S+/
-
-\end{lstlisting}
-
-然后根据获取到的标题类型，转换不同的格式
-
-\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, rulesepcolor=\color{red!20!green!20!blue!20}]
-    line = src.shift_line.strip
-    //获取标题标志上一行的内容
-    text = parse_span line
-    //把标题的内容过滤特殊字符并存入变量
-    level = src.cur_line.md_type == :header2 ? 2 : 1;
-    //获取标题级别
-    md_header(level, text, al)
-    //调用函数转换成需要的格式
-
-\end{lstlisting}
-
-然后把内容转换成markdown语法节点类型
-
-\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, rulesepcolor=\color{red!20!green!20!blue!20}]
-
-  e = MDElement.new(node_type, children, meta, al)
-
-\end{lstlisting}
-
-最后根据需要输出html标题格式
-
-\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, rulesepcolor=\color{red!20!green!20!blue!20}]
-
-  def to_html_header
-    element_name = "h#{self.level}"
-    h = wrap_as_element element_name
-    if span = render_section_number
-      h.children.first.before(span)
-    end
-    add_ws h
-  end
-
-\end{lstlisting}
+最后根据需要输出html标题格式，如图~\ref{fig:xfiga6}:
+\begin{figure}[H]
+  \centering
+  \includegraphics{code3}
+  \caption{代码片段3}
+  \label{fig:xfiga6}
+\end{figure}
 
 \section{RESTful api}
 \label{sec:apitable}
@@ -410,30 +371,14 @@ RESTful规定对系统的操作有两个部分表达，资源的地址和对该�
 \subsection{返回的内容}
 \label{sec:content}
 
-对于以上URL系统支持多种格式的返回内容，可以返回atom,xml,json等格式，由于篇幅原因这里就不一一展示各种格式的返回内容了。下面以一个用户信息的json返回结果为例说明：
-\begin{bframe}
+对于以上URL系统支持多种格式的返回内容，可以返回atom,xml,json等格式，由于篇幅原因这里就不一一展示各种格式的返回内容了。下面以一个用户信息的json返回结果为例说明,如图~\ref{fig:xfiga7}：
 
-[\\
-    \{\\
-        ``id``: 1,\\
-        "username": "steve\_ma",\\
-        "email": "steve2008.ma@gmail.com",\\
-        "name": "马胜",\\
-        "ident\_no": "040191",\\
-        "department": "图书馆",\\
-        "major": "计算机",\\
-        "blocked": false,\\
-        "created\_at": "2012-05-23T08:00:58Z",\\
-        "qq": "",\\
-        "weibo": "",\\
-        "dark\_scheme": false,\\
-        "pingyin": "masheng",\\
-        "provider": "p",\\
-        "theme\_id": 1\\
-       \},\\
-]\\
-\end{bframe}
-
+\begin{figure}[H]
+  \centering
+  \includegraphics{json}
+  \caption{json文件文件格式}
+  \label{fig:xfiga7}
+\end{figure}
 \subsection{认证}
 \label{sec:anth}
 
